@@ -14,6 +14,15 @@ public class MyGraph {
 		g = new ArrayList<MyVertex>();
 	}
 
+	/**
+	 * Pairnei san orisma enan komvo grafou pou dimiourgisame Elegxei an o user
+	 * iparxei idi ston grafo(ArrayList) An iparxei tote apla prosthetei ta
+	 * arxeia tou ston komvo tou allios prosthetei ton neo xristi ston ArrayList
+	 * kai prosthetei ta arxeia tou
+	 * 
+	 * @param v
+	 * @param category
+	 */
 	public void addToGraph(MyVertex v, MyNode<String> category) {
 		boolean flag = true;
 		int indx = 0, i;
@@ -32,6 +41,16 @@ public class MyGraph {
 		}
 
 	}
+
+	/**
+	 * Methodos pou kanei logout ton xristi USER_i An iparxei o xristis sto
+	 * grafo kanoume to attribute tou komvou tou xristi loggedin = false
+	 * epanarxikopoioume ta ArrayLists me tis akmes kathe xristi kai ta
+	 * ksanadimiourgoume xoris tous xristes pou kanan logout
+	 * 
+	 * @param usr
+	 * @param d
+	 */
 
 	public void userLogOut(String usr, int d) {
 		int i, index = 0;
@@ -54,6 +73,12 @@ public class MyGraph {
 		}
 	}
 
+	/**
+	 * Epistrefei true an o xristis einai sindedemenos allios false
+	 * 
+	 * @param ver
+	 * @return
+	 */
 	public boolean userLogedin(MyVertex ver) {
 		if (ver.loggedin) {
 			return true;
@@ -62,6 +87,9 @@ public class MyGraph {
 		}
 	}
 
+	/**
+	 * Epanarxikopoiisi olon ton ArrayList ton akmon ton xriston tou grafou
+	 */
 	public void initEdges() {
 		int i, j;
 		for (i = 0; i < g.size(); i++) {
@@ -71,6 +99,12 @@ public class MyGraph {
 		}
 	}
 
+	/**
+	 * Dimiourgia akmon metaksi 2 xriston an i apostasi tous einai mikroteri apo
+	 * to d kai an kai oi 2 xristes einai sindedemenoi
+	 * 
+	 * @param d
+	 */
 	public void createEdges(int d) {
 		int i, j, weight;
 		for (i = 0; i < g.size() - 1; i++) {
@@ -88,6 +122,11 @@ public class MyGraph {
 		}
 	}
 
+	/**
+	 * Ektipose tou komvous me tous opoious sindeetai enas xristis sto grafo
+	 * 
+	 * @param node
+	 */
 	public void printAdj(int node) {
 		int i;
 		for (i = 0; i < g.get(node).edges.size(); i++) {
@@ -97,6 +136,9 @@ public class MyGraph {
 
 	}
 
+	/**
+	 * Ektipose to id ton xriston pou einai ston grafo
+	 */
 	public void printGraph() {
 		for (int i = 0; i < g.size(); i++) {
 			System.out.println(g.get(i).id);
@@ -108,6 +150,12 @@ public class MyGraph {
 			System.out.println(g.get(node).categories.get(i).data1);
 	}
 
+	/**
+	 * Ipologismos tis apostasis metaksi 2 xriston vasi ton sintetagmenon tous
+	 * 
+	 * @param z
+	 * @return
+	 */
 	public int square(int z) {
 		return z * z;
 	}

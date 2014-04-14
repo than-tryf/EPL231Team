@@ -19,11 +19,12 @@ public class MainProg {
 	static BufferedReader br;
 	static String sbuf[]; // pairnei [USER_18, 828, 319, Annet_Artani,
 							// file342.mp3]
-	static MyCategory cat_list;
-	static MyGraph g;
-	static MyVertex ver;
-	static MyNode<String> katigoria;
-	static int d;
+	static MyCategory cat_list; // i lista me ta arxeia ana katigoria kaixristi
+	static MyGraph g; // o grafos
+	static MyVertex ver; // o komvos tou grafou
+	static MyNode<String> katigoria; // komvos katigoria pou mpainei ston komvo
+										// tou grafou
+	static int d; // to d pou tou dinoume
 	static Scanner in;
 
 	public static void main(String[] args) {
@@ -42,23 +43,27 @@ public class MainProg {
 			d = in.nextInt();
 
 			start = System.currentTimeMillis();
+			/**
+			 * To while pio kato dimiourgei tous komvous tou grafou kai tous
+			 * topothetei sto arraylist pou antiprosopeuei to grafo mas
+			 */
 			while ((s = br.readLine()) != null) {
 				sbuf = s.split("[\t]+");
-				// System.out.println(sbuf[4]);
 				ver = new MyVertex(Integer.parseInt(sbuf[1]),
 						Integer.parseInt(sbuf[2]), sbuf[0]);
 				katigoria = new MyNode<String>(sbuf[3], sbuf[4]);
 				g.addToGraph(ver, katigoria);
 			}
-			g.createEdges(d);
+			g.createEdges(d); // dimiourgia ton akmon vasi tou d
 			// g.printGraph();
 			// g.printCategoriesOfNode(0);
 			System.out.println("Arxikos grafos: ");
 			g.printAdj(0);
-			g.userLogOut("USER_1", d);
+			g.userLogOut("USER_1", d); // kano logout ton USER_1
 			System.out.println("Telikos grafos: ");
 			g.printAdj(0);
-			cat_list.createCategoryList(g);
+			cat_list.createCategoryList(g); // dimiourgia tis listas me tis
+											// katigories
 			// cat_list.printLists();
 			end = System.currentTimeMillis();
 			System.out.println("Spend time = " + (end - start) + "Milsec");

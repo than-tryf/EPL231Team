@@ -13,6 +13,7 @@ public class CategoryNode {
 		katigoria = cat;
 		vertex = new ArrayList<MyNode<String>>();
 		
+		
 	}
 
 }

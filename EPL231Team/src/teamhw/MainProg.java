@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * 
- * @author root
+ * @author root pame trelenomaiiii Thanasis Elias Stylianos
  */
 public class MainProg {
 
@@ -57,14 +57,31 @@ public class MainProg {
 			g.createEdges(d); // dimiourgia ton akmon vasi tou d
 			// g.printGraph();
 			// g.printCategoriesOfNode(0);
-			System.out.println("Arxikos grafos: ");
-			g.printAdj(0);
-			g.userLogOut("USER_1", d); // kano logout ton USER_1
-			System.out.println("Telikos grafos: ");
-			g.printAdj(0);
+
+			// if(!g.isEmptyGraph()){
+			// System.out.println("Arxikos grafos: ");
+			// g.printAdj(0);
+			// g.userLogOut("USER_1", d); // kano logout ton USER_1
+			// if(!g.isEmptyGraph())
+			// System.out.println("Telikos grafos: ");
+			// g.printAdj(0);
+			// }//isEmpty
+
+			g.addUserToGraph("USER_5", d, 600, 600);
+
+			// System.out.println("After Login: ");
+			// g.printAdj(0);
+
 			cat_list.createCategoryList(g); // dimiourgia tis listas me tis
 											// katigories
-			// cat_list.printLists();
+			cat_list.printLists();
+			System.out.println("\n\nTelikos grafos: ");
+			g.addNewFile("USER_5", "Sotiria_Bellou", "file123.mp3");
+			cat_list.printLists();
+
+			System.out.println("*******************");
+			cat_list.printData("Kristi_Stassinopoulou");
+
 			end = System.currentTimeMillis();
 			System.out.println("Spend time = " + (end - start) + "Milsec");
 		} catch (FileNotFoundException ex) {

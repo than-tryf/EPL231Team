@@ -74,6 +74,73 @@ public class MyGraph {
 	}
 
 	/**
+	 * Login or add new user
+	 * 
+	 * @param usr
+	 * @param d
+	 * @param x1
+	 * @param y1
+	 */
+	public void addUserToGraph(String usr, int d, int x1, int y1) {
+		int i, index = 0;
+		boolean flag = false;
+
+		for (i = 0; i < g.size(); i++) {
+			if (usr.equals(g.get(i).name)) {
+				flag = true;
+				index = i;
+			}
+		}
+
+		if (flag) {
+			if (userLogedin(g.get(index))) {
+				System.out.println("User is already Logged in!");
+			} else {
+				g.get(index).loggedin = true;
+				initEdges();
+				createEdges(d);
+			}
+		} else {
+			addToGraph(new MyVertex(x1, y1, usr), new MyNode<String>());
+			initEdges();
+			createEdges(d);
+		}
+	}
+
+	/**
+	 * Eisagogi neou arxeiou se kapoion xristi
+	 * 
+	 * @param usr
+	 * @param category
+	 * @param filename
+	 */
+	public void addNewFile(String usr, String category, String filename) {
+
+		int i, index = 0;
+		boolean found = false;
+		MyNode<String> nCatNode = new MyNode<String>(category, filename);
+		String cname;
+
+		for (i = 0; i < g.size(); i++) {
+			cname = g.get(i).name;
+			if (cname.equals(usr)) {
+				found = true;
+				index = i;
+			}
+
+		}
+
+		if (found) {
+			g.get(index).categories.add(nCatNode);
+			MainProg.cat_list = new MyCategory(); //prosvasi antikeimenon apo ti MainProg
+			MainProg.cat_list.createCategoryList(MainProg.g);		
+		} else {
+			System.out.println("User not found!");
+		}
+
+	}
+
+	/**
 	 * Epistrefei true an o xristis einai sindedemenos allios false
 	 * 
 	 * @param ver
@@ -168,6 +235,19 @@ public class MyGraph {
 		dis = (int) Math.sqrt(yd + xd);
 
 		return dis;
+
+	}
+
+	public boolean isEmptyGraph() {
+
+		for (int i = 0; i < g.size(); i++) {
+			if (!(g.get(i).edges.isEmpty())) {
+				return false;
+			}
+		}
+		return true;
+
+	
 
 	}
 

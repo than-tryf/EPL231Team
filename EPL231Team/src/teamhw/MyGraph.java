@@ -1,6 +1,7 @@
 package teamhw;
 
 import java.util.ArrayList;
+import java.io.*;
 
 /**
  * 
@@ -132,8 +133,9 @@ public class MyGraph {
 
 		if (found) {
 			g.get(index).categories.add(nCatNode);
-			MainProg.cat_list = new MyCategory(); //prosvasi antikeimenon apo ti MainProg
-			MainProg.cat_list.createCategoryList(MainProg.g);		
+			MainProg.cat_list = new MyCategory(); // prosvasi antikeimenon apo
+													// ti MainProg
+			MainProg.cat_list.createCategoryList(MainProg.g);
 		} else {
 			System.out.println("User not found!");
 		}
@@ -246,9 +248,46 @@ public class MyGraph {
 			}
 		}
 		return true;
-
-	
-
 	}
 
+	public void saveGraph() {
+
+		try {			
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter(
+					"HW3InputFile2.txt"));
+
+			String formatStr = "%-15s %6s %16s %26s";
+			writer.write(String.format(formatStr,"KODIKOS","SYNTETAGMENES","KATHGORIA","ARXEIO" ));
+			formatStr = "%-15s %6s %-13s %-29s %5s";
+			//writer.write("KODIKOS\tSYNTETAGMENES\tKATHGORIA\t\tARXEIO");
+			writer.newLine();
+
+			for (int i = 0; i < g.size(); i++) {
+
+				if (g.get(i).loggedin) { // check if the user in online
+
+					for (int j = 0; j < g.get(i).categories.size(); j++) {
+						if (g.get(i).categories.get(j).data1 != null) {
+							writer.write(String.format(formatStr,g.get(i).name,g.get(i).x,
+								    g.get(i).y, g.get(i).categories.get(j).data1,
+									g.get(i).categories.get(j).data2 ));
+							
+							
+						/*	writer.write(g.get(i).name + "\t" + g.get(i).x
+									+ "\t" + g.get(i).y + "\t\t"
+									+ g.get(i).categories.get(j).data1 + "\t"
+									+ g.get(i).categories.get(j).data2);*/
+							writer.newLine();
+						}//if statment to check if is null
+						
+					}// for j
+
+				}
+			}
+			writer.close();
+		} catch (IOException e) {
+		}
+
+	}// save Graph
 }

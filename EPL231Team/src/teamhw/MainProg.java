@@ -41,6 +41,7 @@ public class MainProg {
 
 			System.out.print("Dose to d: ");
 			d = in.nextInt();
+			
 
 			start = System.currentTimeMillis();
 			/**
@@ -54,6 +55,10 @@ public class MainProg {
 				katigoria = new MyNode<String>(sbuf[3], sbuf[4]);
 				g.addToGraph(ver, katigoria);
 			}
+			
+			
+			
+			
 			g.createEdges(d); // dimiourgia ton akmon vasi tou d
 			// g.printGraph();
 			// g.printCategoriesOfNode(0);
@@ -61,7 +66,10 @@ public class MainProg {
 			// if(!g.isEmptyGraph()){
 			// System.out.println("Arxikos grafos: ");
 			// g.printAdj(0);
+			 //g.userLogOut("USER_0", d); // kano logout ton USER_1
 			// g.userLogOut("USER_1", d); // kano logout ton USER_1
+			// g.userLogOut("USER_2", d); // kano logout ton USER_1
+			// g.userLogOut("USER_3", d); // kano logout ton USER_1
 			// if(!g.isEmptyGraph())
 			// System.out.println("Telikos grafos: ");
 			// g.printAdj(0);
@@ -81,7 +89,8 @@ public class MainProg {
 
 			System.out.println("*******************");
 			cat_list.printData("Kristi_Stassinopoulou");
-
+		
+			g.saveGraph();
 			end = System.currentTimeMillis();
 			System.out.println("Spend time = " + (end - start) + "Milsec");
 		} catch (FileNotFoundException ex) {

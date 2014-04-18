@@ -26,6 +26,7 @@ public class MainProg {
 										// tou grafou
 	static int d; // to d pou tou dinoume
 	static Scanner in;
+	static Dijkstra dij; // Dijkstra class for calculating shortest path
 
 	public static void main(String[] args) {
 		try {
@@ -54,6 +55,7 @@ public class MainProg {
 				katigoria = new MyNode<String>(sbuf[3], sbuf[4]);
 				g.addToGraph(ver, katigoria);
 			}
+
 			g.createEdges(d); // dimiourgia ton akmon vasi tou d
 			// g.printGraph();
 			// g.printCategoriesOfNode(0);
@@ -61,7 +63,10 @@ public class MainProg {
 			// if(!g.isEmptyGraph()){
 			// System.out.println("Arxikos grafos: ");
 			// g.printAdj(0);
+			// g.userLogOut("USER_0", d); // kano logout ton USER_1
 			// g.userLogOut("USER_1", d); // kano logout ton USER_1
+			// g.userLogOut("USER_2", d); // kano logout ton USER_1
+			// g.userLogOut("USER_3", d); // kano logout ton USER_1
 			// if(!g.isEmptyGraph())
 			// System.out.println("Telikos grafos: ");
 			// g.printAdj(0);
@@ -74,14 +79,17 @@ public class MainProg {
 
 			cat_list.createCategoryList(g); // dimiourgia tis listas me tis
 											// katigories
-			cat_list.printLists();
-			System.out.println("\n\nTelikos grafos: ");
+			//cat_list.printLists();
+			//System.out.println("\n\nTelikos grafos: ");
 			g.addNewFile("USER_5", "Sotiria_Bellou", "file123.mp3");
-			cat_list.printLists();
+			//cat_list.printLists();
+			dij = new Dijkstra(g);
+			dij.calculateDijkstra("USER_3", "Lambis_Livieratos");
+			//g.showGraph();
+			//System.out.println("*******************");
+			//cat_list.printData("Kristi_Stassinopoulou");
 
-			System.out.println("*******************");
-			cat_list.printData("Kristi_Stassinopoulou");
-
+			//g.saveGraph();
 			end = System.currentTimeMillis();
 			System.out.println("Spend time = " + (end - start) + "Milsec");
 		} catch (FileNotFoundException ex) {

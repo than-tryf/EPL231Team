@@ -40,77 +40,92 @@ public class Dijkstra {
 
 	public void calculateDijkstra(String usr, String cat) {
 		int count = 1;
-		int index = 0;
+		int index = -1;
 		int dis_u, dis_u_v;
 		int w_u_v;
-		int strt = index;
-		int min_cat;
+		// int strt = index;
+		// int min_cat;
 		int me;
 		// Find in which position in the array is the starting user
 		for (int i = 0; i < gr.g.size(); i++) {
 			if (usr.equals(gr.g.get(i).name)) {
 				index = i;
-				strt = index;
+				// strt = index;
 				break;
 			}
 		}
+		if (index > -1) {
+			// System.out.println("Max Integer = "+Integer.MIN_VALUE);
 
-		// System.out.println("Max Integer = "+Integer.MIN_VALUE);
+			// Arxikopoiisi algorithmou
+			d.get(index).data2 = 0;
+			v.set(index, true);
+			// System.out.println("Arxikopoiimenos pinakas distance Dijkstra: ");
+			// for (int i = 0; i < d.size(); i++) {
+			// System.out.println(d.get(i).data1 + " " + d.get(i).data2);
+			// }
+			/*
+			 * / --------- for (int i = 0; i < v.size(); i++) { if
+			 * (d.get(i).data2 == Integer.MAX_VALUE - 1) { v.set(i, true);
+			 * count++; } }
+			 */
+			while (count < gr.g.size()) {
 
-		// Arxikopoiisi algorithmou
-		d.get(index).data2 = 0;
-		v.set(index, true);
-		System.out.println("Arxikopoiimenos pinakas distance Dijkstra: ");
-		for (int i = 0; i < d.size(); i++) {
-			System.out.println(d.get(i).data1 + " " + d.get(i).data2);
-		}
-		/*
-		 * / --------- for (int i = 0; i < v.size(); i++) { if (d.get(i).data2
-		 * == Integer.MAX_VALUE - 1) { v.set(i, true); count++; } }
-		 */
-		while (count < gr.g.size()) {
+				for (int j = 0; j < gr.g.get(index).edges.size(); j++) { // problem
+					me = matchEdge(gr.g.get(index).edges.get(j).data1);
+					// System.out.println("*************************");
+					if (!v.get(me)) {
+						if (d.get(index).data2 < Integer.MAX_VALUE - 1) {
+							dis_u_v = d.get(me).data2;
+							// System.out.println("Distance ("+me+","+index+")"+dis_u_v);
+							dis_u = d.get(index).data2;
+							// System.out.println(dis_u);
+							w_u_v = gr.g.get(index).edges.get(j).data2;
+							// System.out.println(w_u_v);
+							if (dis_u_v > dis_u + w_u_v) {
+								d.get(me).data2 = dis_u + w_u_v;
+								// System.out.println("I am here. dis(u,v) = "+d.get(me).data2);
+							}
+							// System.out.println("**************");
 
-			for (int j = 0; j < gr.g.get(index).edges.size(); j++) { // problem
-				me = matchEdge(gr.g.get(index).edges.get(j).data1);
-				// System.out.println("*************************");
-				if (!v.get(me)) {
-					if (d.get(index).data2 < Integer.MAX_VALUE - 1) {
-						dis_u_v = d.get(me).data2;
-						// System.out.println("Distance ("+me+","+index+")"+dis_u_v);
-						dis_u = d.get(index).data2;
-						// System.out.println(dis_u);
-						w_u_v = gr.g.get(index).edges.get(j).data2;
-						// System.out.println(w_u_v);
-						if (dis_u_v > dis_u + w_u_v) {
-							d.get(me).data2 = dis_u + w_u_v;
-							// System.out.println("I am here. dis(u,v) = "+d.get(me).data2);
 						}
-						// System.out.println("**************");
-
 					}
 				}
+				index = findMinIndex();
+				// System.out.println(index + " " + d.get(index).data2);
+				v.set(index, true);
+				count++;
 			}
-			index = findMinIndex();
-			// System.out.println(index + " " + d.get(index).data2);
-			v.set(index, true);
-			count++;
-		}
 
-		System.out.println("Elaxistes apostasis apo ton " + usr);
-		for (int i = 0; i < d.size(); i++) {
-			System.out.println(d.get(i).data1 + " " + d.get(i).data2);
+			System.out.println("Elaxistes apostasis apo ton " + usr);
+			for (int i = 0; i < d.size(); i++) {
+				System.out.println(d.get(i).data1 + " " + d.get(i).data2);
+			}
+		}else{
+			System.out.println("Wrong username!");
 		}
+	}
 
+	public void showMinCat(String user, String category) {
+		int min_cat;
+		int strt = 0;
+		for (int i = 0; i < gr.g.size(); i++) {
+			if (user.equals(gr.g.get(i).name)) {
+				// index = i;
+				strt = i;
+				break;
+			}
+		}
 		initVisitedArray(strt);
-		min_cat = findMinCat(cat);
+		min_cat = findMinCat(category);
 		if (min_cat >= 0) {
-			System.out.println("Arxeia katigorias: " + cat
-					+ " Me elaxisti apostasi apo ton xristi: " + usr);
-			printUserFiles(min_cat, cat);
+			System.out.println("Arxeia katigorias: " + category
+					+ " Me elaxisti apostasi apo ton xristi: " + user);
+			printUserFiles(min_cat, category);
 		} else {
-			System.out.println("I katigoria " + cat + " einai ektos grafou!");
+			System.out.println("I katigoria " + category
+					+ " einai ektos grafou!");
 		}
-
 	}
 
 	public void printUserFiles(int mc, String cat) {
@@ -228,5 +243,39 @@ public class Dijkstra {
 		if (!found || !(d.get(minCat).data2 < (Integer.MAX_VALUE - 1)))
 			minCat = -1;
 		return minCat;
+	}
+
+	public void allFilesfromUser(String user, String category) {
+		int u_id = -1;
+		for (int i = 0; i < d.size(); i++) {
+			if (category != null) {
+				if (d.get(i).data2 < (Integer.MAX_VALUE - 1)) {
+					u_id = d.get(i).data1;
+					searchandPrintCat(u_id, category, i);
+				}
+			}
+		}
+	}
+
+	public void searchandPrintCat(int uid, String category, int index) {
+		// boolean found = false;
+		String username, filename;
+		for (int i = 0; i < gr.g.size(); i++) {
+			if (gr.g.get(i).id == uid) {
+				for (int j = 0; j < gr.g.get(i).categories.size(); j++) {
+					if (category != null
+							&& gr.g.get(i).categories.get(j).data1 != null) {
+						if (gr.g.get(i).categories.get(j).data1
+								.equals(category)) {
+							username = gr.g.get(i).name;
+							filename = gr.g.get(i).categories.get(j).data2;
+							System.out.println("User: " + username
+									+ " Filename: " + filename + " Distance: "
+									+ d.get(index).data2);
+						}
+					}
+				}
+			}
+		}
 	}
 }

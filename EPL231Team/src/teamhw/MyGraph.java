@@ -58,7 +58,7 @@ public class MyGraph {
 		boolean flag = false;
 
 		for (i = 0; i < g.size(); i++) {
-			if (usr.equals(g.get(i).name)) {
+			if (usr.equals(g.get(i).name) && g.get(i).loggedin) {
 				flag = true;
 				index = i;
 				// break;
@@ -250,30 +250,31 @@ public class MyGraph {
 		return true;
 	}
 
-	public void showGraph(){
-		int i,j;
-		for(i=0;i<g.size();i++){
-			for(j=0;j<g.get(i).edges.size();j++){
+	public void showGraph() {
+		int i, j;
+		for (i = 0; i < g.size(); i++) {
+			for (j = 0; j < g.get(i).edges.size(); j++) {
 				String usr = g.get(i).name;
-				int conn=g.get(i).edges.get(j).data1;
-				int dis=g.get(i).edges.get(j).data2;
-				System.out.println(usr+" Sindesi me "+conn+" me apostasi "+dis);
+				int conn = g.get(i).edges.get(j).data1;
+				int dis = g.get(i).edges.get(j).data2;
+				System.out.println(usr + " Sindesi me " + conn
+						+ " me apostasi " + dis);
 			}
 		}
 	}
-	
+
 	public void saveGraph() {
 
 		try {
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(
-					"HW3InputFile2.txt"));
+					"./HW3InputFile.txt"));
 
-			String formatStr = "%-15s %6s %16s %26s";
-			writer.write(String.format(formatStr, "KODIKOS", "SYNTETAGMENES",
-					"KATHGORIA", "ARXEIO"));
-			formatStr = "%-15s %6s %-13s %-29s %5s";
-			// writer.write("KODIKOS\tSYNTETAGMENES\tKATHGORIA\t\tARXEIO");
+			// String formatStr = "%-15s %6s %16s %26s";
+			// writer.write(String.format(formatStr, "KODIKOS", "SYNTETAGMENES",
+			// "KATHGORIA", "ARXEIO"));
+			// formatStr = "%-15s %6s %-13s %-29s %5s";
+			writer.write("KODIKOS\t\tSYNTETAGMENES\t\tKATHGORIA\t\tARXEIO");
 			writer.newLine();
 
 			for (int i = 0; i < g.size(); i++) {
@@ -282,17 +283,19 @@ public class MyGraph {
 
 					for (int j = 0; j < g.get(i).categories.size(); j++) {
 						if (g.get(i).categories.get(j).data1 != null) {
-							writer.write(String.format(formatStr,
-									g.get(i).name, g.get(i).x, g.get(i).y,
-									g.get(i).categories.get(j).data1,
-									g.get(i).categories.get(j).data2));
-
 							/*
-							 * writer.write(g.get(i).name + "\t" + g.get(i).x +
-							 * "\t" + g.get(i).y + "\t\t" +
-							 * g.get(i).categories.get(j).data1 + "\t" +
-							 * g.get(i).categories.get(j).data2);
+							 * writer.write(String.format(formatStr,
+							 * g.get(i).name, g.get(i).x, g.get(i).y,
+							 * g.get(i).categories.get(j).data1,
+							 * g.get(i).categories.get(j).data2));
 							 */
+
+							writer.write(g.get(i).name + "\t\t" + g.get(i).x
+									+ "\t" + g.get(i).y + "\t\t"
+									+ g.get(i).categories.get(j).data1
+									+ "\t\t\t"
+									+ g.get(i).categories.get(j).data2);
+
 							writer.newLine();
 						}// if statment to check if is null
 

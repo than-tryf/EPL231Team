@@ -28,34 +28,38 @@ public class MyCategory {
 
 		boolean flag = true;
 		for (i = 0; i < graph.g.size(); i++) {
+			// ---THIS---
+			if (graph.g.get(i).loggedin) {
+				for (j = 0; j < graph.g.get(i).categories.size(); j++) {
+					flag = true;
+					cname = graph.g.get(i).categories.get(j).data1;
+					if (cname != null) {
+						for (k = 0; k < kat.size(); k++) {
+							if (cname.equals(kat.get(k).katigoria)) {
+								flag = false;
+								index = k;
 
-			for (j = 0; j < graph.g.get(i).categories.size(); j++) {
-				flag = true;
-				cname = graph.g.get(i).categories.get(j).data1;
-				if (cname != null) {
-					for (k = 0; k < kat.size(); k++) {
-						if (cname.equals(kat.get(k).katigoria)) {
-							flag = false;
-							index = k;
+							}
 
 						}
-
 					}
-				}
 
-				cuser = graph.g.get(i).name;
-				cfile = graph.g.get(i).categories.get(j).data2;
-				if (flag) {
-					cnode = new CategoryNode(cname);
-					kat.add(cnode);
-					index = kat.size() - 1;
-					kat.get(index).vertex.add(new MyNode<String>(cuser, cfile));
-					// index = 0 ;
-				} else {
-					kat.get(index).vertex.add(new MyNode<String>(cuser, cfile));
-					// index =0;
-				}
+					cuser = graph.g.get(i).name;
+					cfile = graph.g.get(i).categories.get(j).data2;
+					if (flag) {
+						cnode = new CategoryNode(cname);
+						kat.add(cnode);
+						index = kat.size() - 1;
+						kat.get(index).vertex.add(new MyNode<String>(cuser,
+								cfile));
+						// index = 0 ;
+					} else {
+						kat.get(index).vertex.add(new MyNode<String>(cuser,
+								cfile));
+						// index =0;
+					}
 
+				}
 			}
 		}
 	}
@@ -82,23 +86,26 @@ public class MyCategory {
 
 	public void printData(String category) {
 
-		boolean flag = false;
+		// boolean flag = false;
 
 		for (int i = 0; i < kat.size(); i++) {
 
-			if (kat.get(i).katigoria.equals(category)) {
-				flag = true;
+			// if (kat.get(i).katigoria.equals(category)
+			// && !kat.get(i).katigoria.equals(null)) {
+			// flag = true;
 
-				for (int g = 0; g < kat.get(i).vertex.size(); g++) {
+			for (int g = 0; g < kat.get(i).vertex.size(); g++) {
+				if (kat.get(i).katigoria!=null
+						&& kat.get(i).katigoria.equals(category)) {
 					System.out.println(kat.get(i).vertex.get(g).data1 + "  "
 							+ kat.get(i).vertex.get(g).data2);
+				}
+			}// for g
 
-				}// for g
+			// }// if statment
 
-			}// if statment
-
-			if (flag == true)
-				return;
+			// if (flag == true)
+			// return;
 
 		}
 
